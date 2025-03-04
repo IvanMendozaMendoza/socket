@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>HELLO WORL</h1>
-
+    <button id="btn">click</button>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.js"
       integrity="sha512-8BHxHDLsOHx+flIrQ0DrZcea7MkHqRU5GbTHmbdzMRnAaoCIkZ97PqZcXJkKZckMMhqfoeaJE+DNUVuyoQsO3Q=="
@@ -15,7 +15,19 @@
       referrerpolicy="no-referrer"
     ></script>
     <script>
-      io("https://localhost:8000");
+      document.addEventListener("DOMContentLoaded", () => {
+        const btn = document.getElementById("btn");
+
+        const socket = io("https://sgphk3-8000.csb.app/");
+
+        socket.on("connect", () => {
+          console.log("Connected to server with ID:", socket.id);
+        });
+
+        btn.addEventListener("click", () => {
+          socket.emit("client", "hello world");
+        });
+      });
     </script>
   </body>
 </html>
